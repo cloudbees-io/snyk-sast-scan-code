@@ -1,0 +1,98 @@
+= CloudBees action: Scan with Snyk SAST
+
+Use this action to scan a Git repository with the Snyk static application security testing (SAST) scanner, which detects security flaws and provides suggested code fixes.
+
+== Inputs
+
+[cols="2a,1a,1a,3a",options="header"]
+.Input details
+|===
+
+| Input name
+| Data type
+| Required?
+| Description
+
+| `orgname`
+| String
+| Yes
+| The Snyk organization name.
+
+| `token`
+| String
+| Yes
+| The Snyk client secret.
+
+| `language`
+| String
+| No
+| The language of your Git repository code base.
+Refer to the supported languages below.
+
+|===
+
+== Supported languages
+
+[cols="1a,1a",options="header"]
+.Supported languages with inputs
+|===
+
+| Supported language
+| Input format
+
+| C
+| `LANGUAGE_C`
+
+| C+
+| `LANGUAGE_C+`
+
+| C#
+| `LANGUAGE_C#`
+
+| Go
+| `LANGUAGE_GO`
+
+| Java
+| `LANGUAGE_JAVA`
+
+| JavaScript
+| `LANGUAGE_JS`
+
+| PHP
+| `LANGUAGE_PHP`
+
+| Python
+| `LANGUAGE_PYTHON`
+
+| Ruby
+| `LANGUAGE_RUBY`
+
+| TypeScript
+| `LANGUAGE_TYPESCRIPT`
+|===
+
+== Usage example
+
+In your YAML file, add:
+
+[source,yaml]
+----
+
+      - name: Scan with Snyk SAST
+        uses: cloudbees-io/snyk-sast-scan-code@v1
+        with:
+          orgname: "snyk_username"
+          token: ${{ secrets.SNYK_SECRET }}
+          language: "LANGUAGE_JS"
+----
+
+== License
+
+This code is made available under the 
+link:https://opensource.org/license/mit/[MIT license].
+
+== References
+
+* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform-actions/latest/[using actions in CloudBees workflows].
+* Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[the CloudBees platform].
+
