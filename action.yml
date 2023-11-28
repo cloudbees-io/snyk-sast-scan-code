@@ -13,7 +13,7 @@ runs:
   steps:
     - id: run-orchestrator
       name: snyksast
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sast-actions:main-81555d1afd6e202e5b383c447ebc6b782494c838
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sast-actions:main-57101ad51f05cb41c8711e77c054e13b5a58dfb4
       shell: bash
       env:
         CONFIG_JSON: '{\"metaInfo\":{\"url\":\"NA\",\"username\":\"${{ inputs.orgname }}\",\"password\":\"NA\",\"client_secret\":\"${{ inputs.token }}\",\"toolName\":\"snyksast\"},\"orchestratorInfo\":{\"assetType\":\"CODE\",\"assetIdentifier\":\"${{ cloudbees.scm.repositoryUrl }}\",\"profileIdentifier\":\"${{ cloudbees.scm.branch }}\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"${{ cloudbees.event.head_commit.author.name }}\",\"commit_id\":\"${{ cloudbees.event.head_commit.id }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SAST\",\"pipeline_info\":{\"id\":\"04612\",\"name\":\"test_pipeline\",\"step_id\":\"04612_test_pipeline\"}}}' 
