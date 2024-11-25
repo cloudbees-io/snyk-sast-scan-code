@@ -13,7 +13,8 @@ runs:
   steps:
     - id: run-orchestrator
       name: snyksast
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sast-actions:main-afe723c289f38c62691793290719580556bf9ff3
+      # uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sast-actions:main-afe723c289f38c62691793290719580556bf9ff3
+      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/snyk-sast-actions:main-1cc6974f3dbda27013df74ddd1deeda1d10c90d2 
       shell: bash
       env:
         CONFIG_JSON: '{\"metaInfo\":{\"url\":\"NA\",\"username\":\"${{ inputs.orgname }}\",\"password\":\"NA\",\"client_secret\":\"${{ inputs.token }}\",\"toolName\":\"snyksast\"},\"orchestratorInfo\":{\"assetType\":\"CODE\",\"assetIdentifier\":\"${{ cloudbees.scm.repositoryUrl }}\",\"profileIdentifier\":\"${{ cloudbees.scm.branch }}\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"SCM-Bot\",\"commit_id\":\"${{ cloudbees.scm.sha }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SAST\",\"pipeline_info\":{\"id\":\"04612\",\"name\":\"test_pipeline\",\"step_id\":\"04612_test_pipeline\"}}}' 
