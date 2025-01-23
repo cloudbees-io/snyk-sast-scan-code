@@ -16,18 +16,30 @@ runs:
       uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sast-actions:main-358cf71dbc61ab5c32b788958bde5dfe732adf1d
       shell: bash
       env:
-        CONFIG_JSON: '{\"metaInfo\":{\"url\":\"NA\",\"username\":\"${{ inputs.orgname }}\",\"password\":\"NA\",\"client_secret\":\"${{ inputs.token }}\",\"toolName\":\"snyksast\"},\"orchestratorInfo\":{\"assetType\":\"CODE\",\"assetIdentifier\":\"${{ cloudbees.scm.repositoryUrl }}\",\"profileIdentifier\":\"${{ cloudbees.scm.branch }}\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"SCM-Bot\",\"commit_id\":\"${{ cloudbees.scm.sha }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SAST\",\"pipeline_info\":{\"id\":\"04612\",\"name\":\"test_pipeline\",\"step_id\":\"04612_test_pipeline\"}}}' 
         RUN_ID: ${{ cloudbees.run_id }}
         STEP_ID: ${{ step.internal.id }}
         JOB_ID: ${{ job.id }}
         DNS_URL: ${{ cloudbees.api.url }}
         JWT_TOKEN: ${{ cloudbees.api.token }}
       run: |
-        set -x
+        set +x
         echo "RUN ID: ${{ cloudbees.run_id }}"
         echo "Job ID: ${{ job.id }}"
-        echo "Step ID: ${{ step.internal.id }}"      
+        echo "Step ID: ${{ step.internal.id }}"   
+
+         # fetch checkedout repo url and branch into assetIdentifier and profileIdentifier
+        assetIdentifier=$(git config --get remote.origin.url)
+        currentBranch=$(git branch | grep "*")
+        profileIdentifier=${currentBranch:2}
+
+        CONFIG_JSON='{\"metaInfo\":{\"url\":\"NA\",\"username\":\"${{ inputs.orgname }}\",\"password\":\"NA\",\"client_secret\":\"${{ inputs.token }}\",\"toolName\":\"snyksast\"},\"orchestratorInfo\":{\"assetType\":\"CODE\",\"assetIdentifier\":\"'
+        CONFIG_JSON+=$assetIdentifier
+        CONFIG_JSON+='\",\"profileIdentifier\":\"'
+        CONFIG_JSON+=$profileIdentifier
+        CONFIG_JSON+='\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"SCM-Bot\",\"commit_id\":\"${{ cloudbees.scm.sha }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SAST\",\"pipeline_info\":{\"id\":\"04612\",\"name\":\"test_pipeline\",\"step_id\":\"04612_test_pipeline\"}}}'
+        
         cd /
+        set -x
         /bin/bash -c "java -jar ./executables/snyk-sast-analyzer.jar & while ! nc -z localhost 5001; do sleep 1; done && ./executables/orchestrator -scanConfig \"${CONFIG_JSON}\" execute-analyser && exit"
  
 
