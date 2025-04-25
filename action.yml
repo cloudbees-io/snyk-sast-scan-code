@@ -29,7 +29,8 @@ runs:
   steps:
     - id: snyksast
       name: snyksast
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sast-actions:main-8d5be5b9be156b23a89c928d33029147eb28ed08
+      # latest image
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sast-actions:main-29c86037011c4f715d05ef1aae5c2a1f8dc061dd
       shell: bash
       env:
         RUN_ID: ${{ cloudbees.run_id }}
@@ -58,6 +59,3 @@ runs:
         set -x
         /bin/bash -c "java -jar ./executables/snyk-sast-analyzer.jar & while ! nc -z localhost 5001; do sleep 1; done && ./executables/orchestrator -scanConfig \"${CONFIG_JSON}\" execute-analyser && exit"
  
-
-       
-        
