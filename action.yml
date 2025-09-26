@@ -30,7 +30,7 @@ runs:
     - id: snyksast
       name: snyksast
       # latest image
-      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/snyk-sast-actions:CBP-21415-699abba79f0f858098931a0cc9d56503055d0879
+      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/snyk-sast-actions:CBP-21415-152d0e25569bf64d7ce600d4de5f406276f277ea
       shell: bash
       env:
         RUN_ID: ${{ cloudbees.run_id }}
