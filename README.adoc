@@ -1,5 +1,10 @@
 = CloudBees action: Scan with Snyk SAST
 
+[WARNING]
+====
+*DEPRECATED:* This workflow is now legacy and deprecated. Please use link:https://github.com/cloudbees-io/snyk-sast-plugin[snyk-sast-plugin] instead. This legacy workflow will be retired on September 30th, 2026.
+====
+
 Use this action to scan a Git repository with the Snyk static application security testing (SAST) scanner, which detects security flaws and provides suggested code fixes.
 
 == Inputs
