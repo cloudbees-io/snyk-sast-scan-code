@@ -40,6 +40,7 @@ runs:
         JWT_TOKEN: ${{ cloudbees.api.token }}
       run: |
         set +x
+        echo "\e[1msnyk-sast-scan-code is now legacy and is deprecated. Please use snyk-sast-plugin, instead. This legacy workflow will be retired on September 30th, 2026\e[0m"
         echo "RUN ID: ${{ cloudbees.run_id }}"
         echo "Job ID: ${{ job.id }}"
         echo "Step ID: ${{ step.internal.id }}"   
